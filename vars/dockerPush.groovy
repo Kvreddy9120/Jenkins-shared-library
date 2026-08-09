@@ -1,5 +1,6 @@
-def cell (String image_name, String tag) {
+def call (String image_name, String tag) {
     withDockerRegistry([credentialsId: 'dockerhub']) {
-        sh "docker push ${image_name}:${tag}"
+        echo "Pushing Docker image to Docker Hub..."
+         sh "docker push ${image_name}:${tag}"
     }
 }
