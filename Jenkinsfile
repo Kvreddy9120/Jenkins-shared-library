@@ -17,13 +17,13 @@ pipeline {
         }
         stage('Image') {
             steps {
-                dockerBuild("kvreddy9120/jenkins-shared', "${BUILD_NUMBER}")
+                dockerBuild("kvreddy9120/jenkins-shared', 'myapp')
             }
         }
         stage('Push') {
             steps {
                 script {
-                    dockerPush("kvreddy9120/jenkins-shared", "${BUILD_NUMBER}")
+                    dockerPush("kvreddy9120/jenkins-shared", 'myapp')
                 }
             }
         }
