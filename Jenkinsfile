@@ -1,35 +1,30 @@
 @Library('devops-shared-library') _
-
 pipeline {
     agent any
-
     tools {
         maven 'mymaven'
     }
-
     stages {
-
-        stage('Build') {
+        stage ("CheckoutCode") {
+            steps {
+                checkoutCode()
+            }
+        }
+        stage ("MavenBuild") {
             steps {
                 mavenBuild()
             }
         }
-
-        stage('Image') {
+        stage ("DockerBuild") {
             steps {
-                dockerBuild(
-                    "kvreddy9120/jenkins-shared",
-                    "myapp"
-                )
+                dockerBuild('kvreddy9120/jenkins-shared', "${BUILD_NUMBER}")
             }
         }
-
-        stage('Push') {
+        stage ("DockerPush") {
             steps {
-                dockerPush(
-                    "kvreddy9120/jenkins-shared",
-                    "myapp"
-                )
+                script {
+                    dockerPush('kvreddy9120/jenkins-shared', "${BUILD_NUMBER}")
+                }
             }
         }
     }
