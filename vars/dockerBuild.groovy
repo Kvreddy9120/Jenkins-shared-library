@@ -1,3 +1,4 @@
-def cell (Strong image_name, String tag) {
-    sh "docker build -t ${image_name}:${tag} ."
+def call (String imageName, String tag) {
+    echo "Build Docker image..."
+    sh "docker build -t ${imageName}:${tag} ."
 }
